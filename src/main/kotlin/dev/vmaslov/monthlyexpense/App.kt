@@ -11,15 +11,14 @@ class App {
     fun run(args: Array<String>) {
         log.info("Running Monthly Expense Report...")
 
-        val reportPropertiesFile = ResourcePropertyFile(args[0])
-        val reportProperties = ReportProperties(reportPropertiesFile)
-        val monthlyReport = Reports(reportProperties).report()
-
-        log.fine("Getting transactions...")
-        val transactions = monthlyReport.transactions()
+        val transactions = Reports(
+            ReportProperties(
+                ResourcePropertyFile(args[0])
+            )
+        ).report().transactions()
         log.info("Read ${transactions.size} transactions")
 
-        val categories = Categories(reportProperties, transactions)
+        val categories = Categories(ReportProperties(ResourcePropertyFile(args[0])), transactions)
         val json = objectMapper.writeValueAsString(categories.expenses())
         log.info(json)
     }
