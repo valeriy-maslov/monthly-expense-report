@@ -1,26 +1,13 @@
 package dev.vmaslov.monthlyexpense
 
-class ReportProperties(val path: String) {
-
-    private val properties = hashMapOf<String, String>()
+class ReportProperties(private val source: PropertySource) {
 
     fun property(name: String): String {
-        if (properties.isEmpty()) {
-            parse()
-        }
-        return properties[name]!!
-    }
-
-    private fun parse() {
-        val lines = ReportProperties::class.java.getResource("/$path")!!.readText().lines()
-        lines.filter { it.isNotBlank() }.forEach {
-            val split = it.split("=")
-            properties[split[0]] = split[1]
-        }
+        return source.properties()[name]!!
     }
 
     fun groupsDefinitions(): Map<String, String> {
-        return properties.filter { it.key.startsWith("group") }
+        return source.properties().filter { it.key.startsWith("group") }
             .mapKeys { it.key.split(".")[1] }
     }
 

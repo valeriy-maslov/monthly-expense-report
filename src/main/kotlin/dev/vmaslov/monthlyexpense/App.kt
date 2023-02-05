@@ -11,7 +11,8 @@ class App {
     fun run(args: Array<String>) {
         log.info("Running Monthly Expense Report...")
 
-        val reportProperties = ReportProperties(args.get(0))
+        val reportPropertiesFile = PropertyFile(args[0])
+        val reportProperties = ReportProperties(reportPropertiesFile)
         val monthlyReport = Reports(reportProperties).report()
 
         log.fine("Getting transactions...")
@@ -20,6 +21,6 @@ class App {
 
         val categories = Categories(reportProperties, transactions)
         val json = objectMapper.writeValueAsString(categories.expenses())
-        log.fine(json)
+        log.info(json)
     }
 }
