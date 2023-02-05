@@ -2,18 +2,18 @@ package dev.vmaslov.monthlyexpense
 
 import java.math.BigDecimal
 
-class CsvReport(val properties: Properties) : Report {
+class CsvReport(private val reportProperties: ReportProperties) : Report {
 
     override fun transactions(): List<Transaction> {
-        val file = CsvFile(properties.property("csv-report"))
+        val file = CsvFile(reportProperties.property("csv-report"))
 
-        val ignoringPatterns = properties.property("ignore").split(",")
+        val ignoringPatterns = reportProperties.property("ignore").split(",")
 
         // type p
         val report = file.content()
-        if (properties.property("rtype").equals("p")) {
+        if (reportProperties.property("rtype").equals("p")) {
             return report.subList(1, report.size).map {
-                val split = it.split(properties.property("delimiter"))
+                val split = it.split(reportProperties.property("delimiter"))
                 Transaction(BigDecimal(unquoted(split[3])), split[5], split[6], split[7])
             }.filter {
                 for (pattern in ignoringPatterns) {
@@ -24,10 +24,10 @@ class CsvReport(val properties: Properties) : Report {
             }
         }
         return report.subList(20, report.size).filter {
-            val split = it.split(properties.property("delimiter"))
+            val split = it.split(reportProperties.property("delimiter"))
             !split[8].isEmpty() && !split[8].isBlank()
         }.map {
-            val split = it.split(properties.property("delimiter"))
+            val split = it.split(reportProperties.property("delimiter"))
             Transaction(BigDecimal(unquoted(split[8].replace(",", "."))), split[3], split[2], split[14])
         }.filter {
             for (pattern in ignoringPatterns) {

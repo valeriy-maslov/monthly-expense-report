@@ -5,24 +5,21 @@ import java.util.logging.Logger
 
 class App {
 
-    val log = Logger.getLogger(this.javaClass.name)
-    val objectMapper = ObjectMapper().writerWithDefaultPrettyPrinter()
+    private val log = Logger.getLogger(this.javaClass.name)
+    private val objectMapper = ObjectMapper().writerWithDefaultPrettyPrinter()
 
     fun run(args: Array<String>) {
         log.info("Running Monthly Expense Report...")
 
-        val properties = Properties(args.get(0))
-        val monthlyReport = Reports(properties).report()
+        val reportProperties = ReportProperties(args.get(0))
+        val monthlyReport = Reports(reportProperties).report()
 
-        log.info("Getting transactions...")
+        log.fine("Getting transactions...")
         val transactions = monthlyReport.transactions()
         log.info("Read ${transactions.size} transactions")
 
-        val categories = Categories(properties, transactions)
+        val categories = Categories(reportProperties, transactions)
         val json = objectMapper.writeValueAsString(categories.expenses())
-
-
-        log.info(json)
-
+        log.fine(json)
     }
 }

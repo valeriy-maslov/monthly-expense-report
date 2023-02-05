@@ -1,6 +1,6 @@
 package dev.vmaslov.monthlyexpense
 
-class Properties(val path: String) {
+class ReportProperties(val path: String) {
 
     private val properties = hashMapOf<String, String>()
 
@@ -12,7 +12,7 @@ class Properties(val path: String) {
     }
 
     private fun parse() {
-        val lines = Properties::class.java.getResource("/$path")!!.readText().lines()
+        val lines = ReportProperties::class.java.getResource("/$path")!!.readText().lines()
         lines.filter { it.isNotBlank() }.forEach {
             val split = it.split("=")
             properties[split[0]] = split[1]

@@ -3,8 +3,8 @@ package dev.vmaslov.monthlyexpense
 import java.math.BigDecimal
 
 class Categories(
-    val properties: Properties,
-    val transactions: List<Transaction>
+    private val reportProperties: ReportProperties,
+    private val transactions: List<Transaction>
 ) {
     fun expenses(): Map<String, BigDecimal> {
         return transactions.filter { it.quote < BigDecimal.ZERO }.groupBy { categorize(it) }
@@ -13,7 +13,7 @@ class Categories(
     }
 
     private fun categorize(transaction: Transaction): String {
-        val groupsDefinitions = properties.groupsDefinitions()
+        val groupsDefinitions = reportProperties.groupsDefinitions()
         val element = groupsDefinitions.entries.toList()
             .find {
                 val patterns = it.value.split(",")

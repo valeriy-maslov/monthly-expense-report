@@ -1,7 +1,7 @@
 package dev.vmaslov.monthlyexpense
 
-class Reports(val properties: Properties) {
+class Reports(private val reportProperties: ReportProperties) {
 
-    fun report(): Report = CsvReport(properties)
+    fun report(): Report = CsvReport(reportProperties)
 
 }
