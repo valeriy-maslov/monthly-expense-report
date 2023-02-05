@@ -23,4 +23,8 @@ class ReportProperties(private val source: PropertySource) {
         return source.properties()["delimiter"]!!
     }
 
+    fun headerLines(): Int {
+        return source.properties()["header-lines"]!!.toInt()
+    }
+
 }

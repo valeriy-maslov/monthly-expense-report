@@ -3,3 +3,4 @@ delimiter=;
 ignore=aaa
 group.apt=bbb
 rtype=i
+header-lines=1

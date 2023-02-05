@@ -7,4 +7,10 @@ data class Transaction(
     val description: String,
     val agent: String,
     val details: String
-)
+) {
+
+    fun hasPattern(pattern: String): Boolean {
+        return this.agent.contains(pattern) || this.description.contains(pattern) || this.details.contains(pattern)
+    }
+}
+
