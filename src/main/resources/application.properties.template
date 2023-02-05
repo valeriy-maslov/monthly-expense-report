@@ -2,5 +2,4 @@ csv-report=test.csv
 delimiter=;
 ignore=aaa
 group.apt=bbb
-rtype=i
 header-lines=1
