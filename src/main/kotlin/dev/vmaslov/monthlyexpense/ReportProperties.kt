@@ -11,5 +11,4 @@ class ReportProperties(private val source: PropertySource) {
             .mapKeys { it.key.split(".")[1] }
     }
 
-
 }

@@ -1,6 +1,6 @@
 package dev.vmaslov.monthlyexpense
 
-class PropertyFile(
+class ResourcePropertyFile(
     private val path: String
 ) : PropertySource {
 

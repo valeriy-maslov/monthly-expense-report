@@ -11,7 +11,7 @@ class App {
     fun run(args: Array<String>) {
         log.info("Running Monthly Expense Report...")
 
-        val reportPropertiesFile = PropertyFile(args[0])
+        val reportPropertiesFile = ResourcePropertyFile(args[0])
         val reportProperties = ReportProperties(reportPropertiesFile)
         val monthlyReport = Reports(reportProperties).report()
 
