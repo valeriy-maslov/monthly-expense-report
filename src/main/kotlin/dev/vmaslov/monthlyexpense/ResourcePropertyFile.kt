@@ -11,5 +11,4 @@ class ResourcePropertyFile(
             Pair(split[0], split[1])
         }
     }
-
 }
